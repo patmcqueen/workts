@@ -106,3 +106,5 @@ compatibility_flags = ["nodejs_compat"]
 # [[vectorize]]
 # binding = "MY_INDEX"
 # index_name = "my-index"
+[ai]
+binding = "AI" # i.e. available in your Worker on env.AI
