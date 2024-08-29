@@ -59,6 +59,15 @@ app.get('/', (c) => {
           font-size: 1rem;
           width: 300px;
         }
+        #sendButton {
+          padding: 10px;
+          font-size: 1rem;
+          cursor: pointer;
+        }
+        #sendButton:disabled {
+          background-color: #cccccc;
+          cursor: not-allowed;
+        }
       </style>
     </head>
     <body>
@@ -81,6 +90,8 @@ app.get('/', (c) => {
           const message = userInput.value.trim();
           if (message) {
             appendMessage('You: ' + message);
+            sendButton.disabled = true;
+            sendButton.textContent = 'Thinking...';
             fetch('/chat', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -93,6 +104,10 @@ app.get('/', (c) => {
             .catch(error => {
               console.error('Error:', error);
               appendMessage('AI: Sorry, there was an error processing your request.');
+            })
+            .finally(() => {
+              sendButton.disabled = false;
+              sendButton.textContent = 'Send';
             });
             userInput.value = '';
           }
